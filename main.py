@@ -61,6 +61,6 @@ def compare_setups(setup1_path, setup2_path):
 # compare_setups
 
 # main
-setup_diff = compare_setups('aggr.json', 'CDA_M4_MON_Q01.json')
+setup_diff = compare_setups('setup_example1.json', 'setup_example2.json')
 for x in setup_diff.items():
         print(x)
