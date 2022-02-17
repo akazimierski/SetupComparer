@@ -4,8 +4,7 @@ def compare_setups(setup1_path, setup2_path):
     # internal functions
     def setup_iteration(setup_dict):
         for key, value in setup_dict.items():
-            if type(value) == str:
-                continue
+            # it is list instead of dict, need seperate handling
             if key == 'pitStrategy':
                 continue
             if isinstance(value, dict):
@@ -51,6 +50,12 @@ def compare_setups(setup1_path, setup2_path):
     i = 0
     while i < len(setup1_values):
         value_type = type(setup1_values[i])
+        if value_type == str:
+            # booloen information if compared setups are from the same car
+            if setup1_values[i] == setup2_values[i]:
+                diff_dict[setup_keys[i]] = True
+            else:
+                diff_dict[setup_keys[i]] = False
         if value_type == int or value_type == float:
             diff_dict[setup_keys[i]] = setup1_values[i] - setup2_values[i]
         if value_type == list:
