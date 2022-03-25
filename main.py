@@ -36,11 +36,8 @@ def compare_setups(setup1_path, setup2_path):
         return setup_keys
     # end internal functions
 
-    with open(setup1_path) as setup1:
-        data1 = json.load(setup1)
-
-    with open(setup2_path) as setup2:
-        data2 = json.load(setup2)
+    data1 = load_json_to_dict(setup1_path)
+    data2 = load_json_to_dict(setup2_path)
 
     setup_keys = get_keys_list_from_setup_data(data1)
     setup1_values = get_values_dict_from_setup_data(data1)
@@ -65,7 +62,19 @@ def compare_setups(setup1_path, setup2_path):
     return diff_dict
 # compare_setups
 
+def load_json_to_dict(file_path):
+    with open(file_path) as setup1:
+        result_dict = json.load(setup1)
+    return result_dict
+# load_json_to_dict
+
+def save_dict_to_json(dict_to_save, file_path):
+    with open(file_path, 'w') as fp:
+        json.dump(dict_to_save, fp)
+# save_dict_to_json
+
 # main
 setup_diff = compare_setups('setup_example1.json', 'setup_example2.json')
 for x in setup_diff.items():
         print(x)
+save_dict_to_json(setup_diff, 'diff.json')
